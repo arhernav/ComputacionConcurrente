@@ -50,11 +50,16 @@ public class PrimeNumberCalculator implements Runnable {
         } 
 
         int range = (n - 2) / this.threads;
+        int remainder = (n - 2) % this.threads;
         PrimeNumberCalculator[] calcs = new PrimeNumberCalculator[this.threads];
         Thread[] threads = new Thread[this.threads];
 
         for (int i = 0; i < this.threads; i++) {
-            PrimeNumberCalculator calculator = new PrimeNumberCalculator(n, i * range + 2, (i+1) * range + 2);
+            int a = i * range + 2;
+            int b = (i+1) * range + 2;
+            if (remainder-- > 0) b++;
+
+            PrimeNumberCalculator calculator = new PrimeNumberCalculator(n, a, b);
             threads[i] = new Thread(calculator);
             calcs[i] = calculator;
             threads[i].run();
