@@ -55,13 +55,13 @@ public class PrimeNumberCalculator implements Runnable {
         Thread[] threads = new Thread[this.threads];
 
         for (int i = 0; i < this.threads; i++) {
-            int a = i * range + 2;
-            int b = (i+1) * range + 2;
-            if (remainder-- > 0) b++;
+            int start = i * range + 2;
+            int end = (i+1) * range + 2;
+            if (remainder-- > 0) end++;
 
-            PrimeNumberCalculator calculator = new PrimeNumberCalculator(n, a, b);
+            PrimeNumberCalculator calculator = new PrimeNumberCalculator(n, start, end);
             threads[i] = new Thread(calculator);
-            calcs[i] = calculator;
+            calcs  [i] = calculator; // Me gusta que estén alineados, lo siento.
             threads[i].run();
         }
 
