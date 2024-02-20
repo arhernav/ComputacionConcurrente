@@ -1,11 +1,12 @@
 package unam.ciencias.computoconcurrente;
 
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.ArrayDeque;
+import java.util.Arrays;
 
 public class MatrixUtils implements Runnable {
     private int threads;
-    private double promedioSegmento;
+    // Cambiamos el tipo de dato de este resultado porque si no el programa sería erroneo para una matriz triangular.
+    private int sumaSegmento;
     private int[] matrizDividida;
 
     public MatrixUtils() {
@@ -18,18 +19,39 @@ public class MatrixUtils implements Runnable {
 
     public MatrixUtils(int[] matrizDividida) {
         this.matrizDividida = matrizDividida;
-        this.promedioSegmento = 0;
+        this.sumaSegmento = 0;
     }
 
     @Override
     public void run() {
-        // Aqui va tu codigo
+        sumaSegmento = Arrays.stream(matrizDividida).reduce(0, (a, b) -> a+b);
     }
 
     public double findAverage(int[][] matrix) throws InterruptedException {
+        MatrixUtils[] mats = new MatrixUtils[matrix.length];
+        ArrayDeque<Thread> queue = new ArrayDeque<Thread>();
+        int itemCount = 0;
+
+        for (int i = 0; i < matrix.length; i++) {
+            itemCount += matrix[i].length;
+            mats[i] = new MatrixUtils(matrix[i]);
+
+            if (queue.size() > threads) 
+                queue.pop().join();
+
+            Thread t = new Thread(mats[i]);
+            t.run();
+            queue.push(t);
+        }
+
+        for (Thread t : queue) 
+            t.join();
         
-
-        return 1.0;
+        double sum = Arrays.stream(mats)
+            .mapToInt(m -> m.sumaSegmento)
+            .reduce(0, (a, b) -> a + b);
+        
+        return sum / itemCount;
     }
-
-}
+    
+}                          
