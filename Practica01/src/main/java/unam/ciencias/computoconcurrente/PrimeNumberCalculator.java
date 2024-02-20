@@ -1,5 +1,13 @@
 package unam.ciencias.computoconcurrente;
 
+/*
+Becerril Lara Francisco Javier
+Juan Carlos Zenteno Pompa
+Hernández Navarro Armando
+Emiliano Domínguez Cruz
+*/
+
+
 import java.util.Iterator;
 import java.util.stream.IntStream;
 
