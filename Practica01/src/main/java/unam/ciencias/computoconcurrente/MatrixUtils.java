@@ -1,5 +1,8 @@
 package unam.ciencias.computoconcurrente;
 
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class MatrixUtils implements Runnable {
     private int threads;
     private double promedioSegmento;
@@ -20,12 +23,13 @@ public class MatrixUtils implements Runnable {
 
     @Override
     public void run() {
-        //Aqui va tu codigo
+        // Aqui va tu codigo
     }
 
     public double findAverage(int[][] matrix) throws InterruptedException {
-        //Aqui va tu codigo
+        
+
         return 1.0;
     }
-    
+
 }

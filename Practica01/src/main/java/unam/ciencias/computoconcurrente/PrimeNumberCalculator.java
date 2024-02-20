@@ -1,5 +1,8 @@
 package unam.ciencias.computoconcurrente;
 
+import java.util.Iterator;
+import java.util.stream.IntStream;
+
 public class PrimeNumberCalculator implements Runnable {
     private int threads;
     private int numero;
@@ -23,8 +26,16 @@ public class PrimeNumberCalculator implements Runnable {
 
     @Override
     public void run() {
-        //Aqui va tu codigo
-        return;
+        this.resultado = true;
+        Iterator<Integer> range = IntStream.range(inicioSegmento, finalSegmento).iterator();
+
+        while (range.hasNext()) {
+            int i = range.next();
+            if (numero % i == 0) {
+                this.resultado = false;
+                break;
+            }
+        }
     }
 
     /**
@@ -34,7 +45,35 @@ public class PrimeNumberCalculator implements Runnable {
     * @return Si es primo o no es primo.
     */
     public boolean isPrime(int n) throws InterruptedException {
-        //Aqui va tu codigo
+        if (n < 2) {
+            return false;
+        } 
+
+        int range = (n - 2) / this.threads;
+        int remainder = (n - 2) % this.threads;
+        PrimeNumberCalculator[] calcs = new PrimeNumberCalculator[this.threads];
+        Thread[] threads = new Thread[this.threads];
+
+        int ptr = 2;
+        for (int i = 0; i < this.threads; i++) {
+            int end = ptr + range;
+            if (0 < remainder--) end++;
+
+            PrimeNumberCalculator calculator = new PrimeNumberCalculator(n, ptr, end);
+            threads[i] = new Thread(calculator);
+            threads[i].run();
+            calcs[i] = calculator;
+
+            ptr = end;
+        }
+
+        for (int i = 0; i < this.threads; i++) {
+            threads[i].join();
+            if (!calcs[i].resultado) {
+                return false;
+            }
+        }
+
         return true;
     }
 
