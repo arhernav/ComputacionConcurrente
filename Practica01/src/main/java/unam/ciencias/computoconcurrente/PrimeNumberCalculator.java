@@ -69,7 +69,7 @@ public class PrimeNumberCalculator implements Runnable {
 
             PrimeNumberCalculator calculator = new PrimeNumberCalculator(n, ptr, end);
             threads[i] = new Thread(calculator);
-            threads[i].run();
+            threads[i].start();
             calcs[i] = calculator;
 
             ptr = end;

@@ -45,7 +45,7 @@ public class MatrixUtils implements Runnable {
                 queue.pop().join();
 
             Thread t = new Thread(mats[i]);
-            t.run();
+            t.start();
             queue.push(t);
         }
 
