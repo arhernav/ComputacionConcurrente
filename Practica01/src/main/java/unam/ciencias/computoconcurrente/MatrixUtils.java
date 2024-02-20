@@ -54,4 +54,4 @@ public class MatrixUtils implements Runnable {
         return sum / itemCount;
     }
     
-}
+}                          
