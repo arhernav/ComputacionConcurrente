@@ -1,18 +1,45 @@
 package unam.ciencias.computoconcurrente;
 
 import java.util.concurrent.Semaphore;
-
+/**
+ * La clase buffer 
+ */
 class Buffer {
-    private int item;
+    private int item; // items en el buffer para prod y cons
     private Semaphore mutex = new Semaphore(1);
     private Semaphore empty = new Semaphore(2); // Tamaño máximo del buffer
     private Semaphore full = new Semaphore(0);
 
+    /**
+     * 
+     */
     public void producir(int item, int id) {
-        //Aqui va tu codigo
+        try{
+            this.empty.acquire();
+        this.mutex.acquire();
+        System.out.print("Productor: " + id + "produjo" + this.item);
+        this.item++;
+        this.mutex.release();
+        this.full.release();
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
     public void consumir(int id) {
-        //Aqui va tu codigo
+        try{
+            this.full.acquire();
+        this.mutex.acquire();
+        System.out.print("Consumidor: " + id + "Consumió: " + this.item);
+        this.item--;
+        this.mutex.release();
+        this.empty.release();
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        
+        
     }
 }
