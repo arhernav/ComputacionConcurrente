@@ -72,7 +72,7 @@ class HelperThreads extends MyObject {
       System.out.println("age()=" + age()
          + ", time to stop the threads and exit");
       for (int i = 0; i < numHelpers; i++)
-	  helper[i].stop();
+	  //helper[i].stop();
       System.exit(0);
    }
 }
