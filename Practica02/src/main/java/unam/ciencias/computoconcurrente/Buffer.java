@@ -16,11 +16,11 @@ class Buffer {
     public void producir(int item, int id) {
         try{
             this.empty.acquire();
-        this.mutex.acquire();
-        System.out.print("Productor: " + id + " produjo" + this.item + "\n");
-        this.item++;
-        this.mutex.release();
-        this.full.release();
+            this.mutex.acquire();
+            System.out.print("Productor: " + id + " produjo" + this.item + "\n");
+            this.item++;
+            this.mutex.release();
+            this.full.release();
         }
         catch(InterruptedException e){
             e.printStackTrace();
@@ -30,11 +30,11 @@ class Buffer {
     public void consumir(int id) {
         try{
             this.full.acquire();
-        this.mutex.acquire();
-        System.out.print("Consumidor: " + id + " Consumió: " + this.item + "\n");
-        this.item--;
-        this.mutex.release();
-        this.empty.release();
+            this.mutex.acquire();
+            System.out.print("Consumidor: " + id + " Consumió: " + this.item + "\n");
+            this.item--;
+            this.mutex.release();
+            this.empty.release();
         }
         catch(InterruptedException e){
             e.printStackTrace();
