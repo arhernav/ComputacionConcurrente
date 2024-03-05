@@ -11,10 +11,8 @@ class Productor implements Runnable {
     }
 
     public void run() {
-            while(true){
-                this.buffer.producir(0, this.id);
-            }
-            
-            
+        while(true){
+            this.buffer.producir(0, this.id);
+        }
     }
 }
