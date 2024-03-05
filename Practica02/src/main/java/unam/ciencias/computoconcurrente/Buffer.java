@@ -17,7 +17,7 @@ class Buffer {
         try{
             this.empty.acquire();
             this.mutex.acquire();
-            System.out.print("Productor: " + id + " produjo" + this.item + "\n");
+            System.out.print("Productor: " + id + " produjo. Items: " + this.item + "\n");
             this.item++;
             this.mutex.release();
             this.full.release();
@@ -31,7 +31,7 @@ class Buffer {
         try{
             this.full.acquire();
             this.mutex.acquire();
-            System.out.print("Consumidor: " + id + " Consumió: " + this.item + "\n");
+            System.out.print("Consumidor: " + id + " consumió. Items:  " + this.item + "\n");
             this.item--;
             this.mutex.release();
             this.empty.release();
