@@ -10,7 +10,13 @@ class Consumidor implements Runnable {
         this.id = idCounter++;
     }
 
+    /**
+     * Consume un elemento del buffer
+     */
     public void run() {
-        //Aqui va tu codigo
+            while(true){
+                this.buffer.consumir(this.id);
+            }
+            
     }
 }
