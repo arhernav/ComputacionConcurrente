@@ -86,6 +86,7 @@ public class Filosofo implements Runnable {
     private void comer() throws InterruptedException {
         try{
             int sleepTime = ThreadLocalRandom.current().nextInt(0, 1000);  
+            System.out.println("Filosofo " + (id + 1) + " ha entrado su zona critica");
             System.out.println("Filosofo " + (id + 1) + " come por " + sleepTime +"ms");
             Thread.sleep(sleepTime);  
             haComido = true;
