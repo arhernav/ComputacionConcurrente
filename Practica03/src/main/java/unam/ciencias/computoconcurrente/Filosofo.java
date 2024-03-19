@@ -17,18 +17,53 @@ public class Filosofo implements Runnable {
         this.palilloDerecho = palilloDerecho;
         this.haComido = false;
     }
-
     public void run() {
-        //Aqui va tu codigo
+        while(true){
+        if(haComido()){
+            pensar();
+        }
+            comer();
+        }   
     }
+
+      private void comer() throws InterruptedException {
+        if(palilloIzquierdo.tryAcquire()){
+            if(palilloDerecho.tryAcquire()){
+            System.out.println("El fílosofo"+ id + "está comiendo");
+            try{
+                int tiempo = 0;
+                while(tiempo<= 0){
+                    tiempo = new Random.nextInt()%2000;
+                    sleep(tiempo);
+                }
+            }
+                catch (InterruptedException er){
+                    System.out.println("Error en comer " + er.toString());
+                }
+
+                System.out.println("El filoso"+ id + " termino de comer y libero los palillos.");
+                palilloDerecho.release();
+             }
+             palilloIzquierdo.release();
+            
+            }else{
+                System.out.println("El filoso"+id+ "está hambriento." );
+            }
+        }
+
 
     private void pensar() throws InterruptedException {
-        //Aqui va tu codigo
+        System.out.println("Filósofo " + id + " está pensando.");
+        try{
+            int time=0;
+            while(time<=0)
+                time=new Random().nextInt()%2000;
+            sleep(time);
+        }catch(InterruptedException er){
+            System.out.println("Error en pensar " + er.toString());
+        }
     }
 
-    private void comer() throws InterruptedException {
-        //Aqui va tu codigo
-    }
 
     public boolean haComido() {
         return haComido;
