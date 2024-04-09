@@ -11,6 +11,8 @@ class Consumidor implements Runnable {
     }
 
     public void run() {
-        //Aqui va tu codigo
+        while(true){
+            this.buffer.consumir(this.id);
+        }
     }
 }
